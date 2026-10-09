@@ -11,7 +11,15 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 
-export const HomeScreen: React.FC = () => {
+interface HomeScreenProps {
+  onNavigateToReviews?: () => void;
+  onNavigateToPayments?: () => void;
+}
+
+export const HomeScreen: React.FC<HomeScreenProps> = ({
+  onNavigateToReviews,
+  onNavigateToPayments,
+}) => {
   const { user, logout } = useAuth();
 
   const handleLogout = () => {
@@ -116,6 +124,52 @@ export const HomeScreen: React.FC = () => {
           <Text style={styles.statTitle}>Access</Text>
           <Text style={styles.statSubtitle}>Verified</Text>
         </View>
+      </View>
+
+      {/* Member 4: Trust & Payment System Module */}
+      <View style={styles.memberModuleHeader}>
+        <View style={styles.memberBadge}>
+          <Text style={styles.memberBadgeText}>Member 4</Text>
+        </View>
+        <Text style={styles.memberModuleTitle}>Trust & Payment System</Text>
+      </View>
+
+      <View style={styles.memberFeatureCards}>
+        {/* Review & Rating */}
+        <TouchableOpacity
+          style={styles.moduleCard}
+          onPress={onNavigateToReviews}
+          activeOpacity={0.8}
+        >
+          <View style={[styles.moduleIconBox, { backgroundColor: '#FEF3C7' }]}>
+            <Ionicons name="star" size={24} color="#D97706" />
+          </View>
+          <View style={styles.moduleCardContent}>
+            <Text style={styles.moduleCardTitle}>Review & Rating System</Text>
+            <Text style={styles.moduleCardDesc}>
+              Rate completed jobs, manage reviews, calculate ratings & feedback
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+        </TouchableOpacity>
+
+        {/* Payment Proof & Worker Verification */}
+        <TouchableOpacity
+          style={styles.moduleCard}
+          onPress={onNavigateToPayments}
+          activeOpacity={0.8}
+        >
+          <View style={[styles.moduleIconBox, { backgroundColor: '#EEF2FF' }]}>
+            <Ionicons name="shield-checkmark" size={24} color="#4F46E5" />
+          </View>
+          <View style={styles.moduleCardContent}>
+            <Text style={styles.moduleCardTitle}>Payment & Verification</Text>
+            <Text style={styles.moduleCardDesc}>
+              Upload bank slips, check receipt status & Admin worker NIC verification
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color="#94A3B8" />
+        </TouchableOpacity>
       </View>
 
       {/* Quick Menu Options */}
@@ -399,5 +453,73 @@ const styles = StyleSheet.create({
     color: '#EF4444',
     fontSize: 15,
     fontWeight: '700',
+  },
+  memberModuleHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  memberBadge: {
+    backgroundColor: '#4F46E5',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 8,
+    marginRight: 8,
+  },
+  memberBadgeText: {
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  memberModuleTitle: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: '#0F172A',
+  },
+  memberFeatureCards: {
+    marginBottom: 24,
+  },
+  moduleCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderRadius: 18,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    marginBottom: 12,
+    shadowColor: '#64748B',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  moduleIconBox: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  moduleCardContent: {
+    flex: 1,
+    marginLeft: 14,
+    marginRight: 8,
+  },
+  moduleCardTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
+  },
+  moduleCardTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#0F172A',
+  },
+  moduleCardDesc: {
+    fontSize: 12,
+    color: '#64748B',
+    lineHeight: 16,
   },
 });
